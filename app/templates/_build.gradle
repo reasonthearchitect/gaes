@@ -17,9 +17,9 @@ apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'groovy'
-apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'docker'
+apply from: 'gradle/conf/idea.gradle'
 defaultTasks 'bootRun'
 
 
@@ -45,25 +45,10 @@ if (project.hasProperty('prod')) {
   apply from: 'conf/profile_dev.gradle'
 }
 
-configurations {
-    provided
-    //compile.extendsFrom provided
-}
-
-idea {
-    module {
-        scopes.PROVIDED.plus += [configurations.provided]
-    }
-}
-
 group = '<%= dockerreponame %>'
 version = '0.0.1-SNAPSHOT'
 
 description = ''
-
-configurations {
-    providedRuntime
-}
 
 repositories {
     maven { url 'http://repo.spring.io/milestone' }
@@ -132,8 +117,7 @@ dependencies {
     }
     compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
-    provided group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
-
+    
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
 
     compile group: 'com.h2database', name: 'h2' 
