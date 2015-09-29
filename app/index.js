@@ -152,6 +152,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gradle/wrapper/gradle-wrapper.properties', 'gradle/wrapper/gradle-wrapper.properties');
     
 
+    //gradle
+    this.copy('gradle/conf/idea.gradle', 'gradle/conf/idea.gradle');
     
     // Create Java resource files
     mkdirp(resourceDir);

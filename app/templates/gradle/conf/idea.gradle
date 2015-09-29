@@ -1,0 +1,21 @@
+
+apply plugin: 'idea'
+
+configurations {
+    provided
+    //compile.extendsFrom provided
+}
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+	provided group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
+}

@@ -43,6 +43,7 @@ local.properties
 # Gradle
 ######################
 .gradle/**
+!/app/templates/gradle/wrapper/gradle-wrapper.jar
 
 ######################
 # Package Files
