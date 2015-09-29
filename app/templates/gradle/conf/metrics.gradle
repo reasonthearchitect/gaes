@@ -9,4 +9,10 @@ dependencies {
     compile (group: 'io.dropwizard.metrics', name: 'metrics-servlets', version: dropwizard_metrics_version) {
         exclude(module: 'metrics-healthchecks')
     }
+    compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
+    compile (group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
+        exclude(module: 'metrics-core')
+        exclude(module: 'metrics-healthchecks')
+    } 
+    
 }
