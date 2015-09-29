@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 var util = require('util'),
     path = require('path'),
     yeoman = require('yeoman-generator'),
@@ -153,6 +153,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gradle/conf/jackson.gradle', 'gradle/conf/jackson.gradle');
     this.copy('gradle/conf/meta.gradle', 'gradle/conf/meta.gradle');
     this.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
+    this.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
+    this.copy('gradle/conf/unittest.gradle', 'gradle/conf/unittest.gradle');
 
     // profiles
     this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');

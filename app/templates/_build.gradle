@@ -10,6 +10,7 @@ buildscript {
 }
 
 apply from: 'gradle/conf/groovy.gradle'
+apply from: 'gradle/conf/lombok.gradle'
 apply from: 'gradle/conf/sonar.gradle'
 apply from: 'gradle/conf/docker.gradle'
 apply from: 'gradle/conf/metrics.gradle'
@@ -17,13 +18,13 @@ apply from: 'gradle/conf/boot.gradle'
 apply from: 'gradle/conf/jackson.gradle'
 apply from: 'gradle/conf/meta.gradle'
 apply from: 'gradle/conf/ide.gradle'
+apply from: 'gradle/conf/unittest.gradle'
+
 
 sourceCompatibility=1.8
 targetCompatibility=1.8
 
 dependencies {
-
-    compile "org.projectlombok:lombok:1.16.6"
 
     compile group: 'commons-lang', name: 'commons-lang', version: commons_lang_version
     compile group: 'commons-io', name: 'commons-io', version: commons_io_version
@@ -33,19 +34,6 @@ dependencies {
         exclude module: 'mapstruct'
     }
     
-    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
-    testCompile group: 'com.jayway.jsonpath', name: 'json-path'
-	testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
-    testCompile group: 'junit', name: 'junit'
-    testCompile group: 'org.mockito', name: 'mockito-core'
-
-    testCompile group: 'org.spockframework', name: 'spock-core', version: spock_version
-
-    // optional dependencies for using Spock
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: hamcrest_version
-    testCompile group: 'cglib', name: 'cglib-nodep', version: cglib_version
-
-    testCompile group: 'org.objenesis', name: 'objenesis', version: objenesis_version
     testCompile group: 'org.jbehave', name: 'jbehave-core', version: jbehave_version
     testCompile group: 'org.jbehave', name: 'jbehave-spring', version: jbehave_version
 }
