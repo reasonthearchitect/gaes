@@ -2,7 +2,7 @@ apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = '0.7.4.201502262128'
+    toolVersion = jacoco_tools_version
 }
 
 jacocoTestReport {
@@ -12,5 +12,5 @@ jacocoTestReport {
 }
 
 sonarRunner {
-    toolVersion = '2.4'
+    toolVersion = sonar_tool_version
 }

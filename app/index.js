@@ -145,7 +145,7 @@ ScrippsGenerator.prototype.app = function app() {
     
 
     //gradle
-    this.template('gradle/conf/sonar.gradle', 'gradle/conf/sonar.gradle', this, {});
+    this.template('gradle/conf/test/sonar.gradle', 'gradle/conf/test/sonar.gradle', this, {});
     this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
     this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
     this.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
@@ -154,8 +154,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gradle/conf/meta.gradle', 'gradle/conf/meta.gradle');
     this.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
     this.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
-    this.copy('gradle/conf/unittest.gradle', 'gradle/conf/unittest.gradle');
-    this.copy('gradle/conf/jbehave.gradle', 'gradle/conf/jbehave.gradle');
+    this.copy('gradle/conf/test/unittest.gradle', 'gradle/conf/test/unittest.gradle');
+    this.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
     this.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
     // profiles
     this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');

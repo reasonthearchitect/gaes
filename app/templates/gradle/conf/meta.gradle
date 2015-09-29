@@ -19,8 +19,8 @@ configurations.all {
   resolutionStrategy {
     // force certain versions of dependencies (including transitive)
     //  *append new forced modules:
-    force group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson_version
-    force group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
-    force group: 'joda-time', name: 'joda-time', version: joda_time_version
+    force group: 'com.fasterxml.jackson.core',  name: 'jackson-core',       version: jackson_version
+    force group: 'com.fasterxml.jackson.core',  name: 'jackson-databind',   version: jackson_version
+    force group: 'joda-time',                   name: 'joda-time',          version: joda_time_version
   }
 }

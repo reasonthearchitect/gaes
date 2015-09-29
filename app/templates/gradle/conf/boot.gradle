@@ -21,20 +21,20 @@ bootRun {
 }
 
 dependencies {
-	compile group: 'org.springframework.boot', name: 'spring-boot-actuator'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
-    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
-    compile group: 'org.springframework.boot', name: 'spring-boot-loader-tools'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web') {
+	compile group: 'org.springframework.boot',      name: 'spring-boot-actuator'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-starter-security'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-autoconfigure'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-loader-tools'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-starter-logging'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-starter-aop'
+    compile(group: 'org.springframework.boot',      name: 'spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
     }
-    compile(group: 'org.springframework', name: 'spring-context-support') {
+    compile(group: 'org.springframework',           name: 'spring-context-support') {
         exclude(module: 'quartz')
     }
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
+    compile group: 'org.springframework.boot',      name: 'spring-boot-starter-data-elasticsearch'
     
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty'
+    testCompile group: 'org.springframework.boot',  name: 'spring-boot-starter-test'
+    testCompile group: 'org.springframework.boot',  name: 'spring-boot-starter-jetty'
 }
