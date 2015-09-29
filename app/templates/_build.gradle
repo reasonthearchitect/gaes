@@ -20,6 +20,8 @@ apply plugin: 'groovy'
 apply from: 'gradle/conf/ide.gradle'
 apply from: 'gradle/conf/sonar.gradle'
 apply from: 'gradle/conf/docker.gradle'
+apply from: 'gradle/conf/metrics.gradle'
+
 defaultTasks 'bootRun'
 
 
@@ -71,15 +73,6 @@ dependencies {
 
     compile "org.projectlombok:lombok:1.16.6"
 
-    compile group: 'io.dropwizard.metrics', name: 'metrics-core'
-    compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: dropwizard_metrics_version
-    compile group: 'io.dropwizard.metrics', name: 'metrics-healthchecks', version: dropwizard_metrics_version
-    compile group: 'io.dropwizard.metrics', name: 'metrics-jvm', version: dropwizard_metrics_version
-    compile group: 'io.dropwizard.metrics', name: 'metrics-servlet', version: dropwizard_metrics_version
-    compile group: 'io.dropwizard.metrics', name: 'metrics-json', version: dropwizard_metrics_version
-    compile (group: 'io.dropwizard.metrics', name: 'metrics-servlets', version: dropwizard_metrics_version) {
-        exclude(module: 'metrics-healthchecks')
-    }
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-json-org', version: jackson_version
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hppc', version: jackson_version
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: jackson_version
@@ -114,10 +107,7 @@ dependencies {
     }
     compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
-    
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
-
-    compile group: 'com.h2database', name: 'h2' 
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovy_all_version
 
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version

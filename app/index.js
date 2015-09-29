@@ -137,9 +137,7 @@ ScrippsGenerator.prototype.app = function app() {
     // Create the conf folder.
     mkdirp(conf);
 
-    this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
-    this.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
-    this.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
+    
 
     this.template('gradle/conf/sonar.gradle', 'gradle/conf/sonar.gradle', this, {});
     this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
@@ -154,6 +152,13 @@ ScrippsGenerator.prototype.app = function app() {
 
     //gradle
     this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
+    this.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
+
+
+    // profiles
+    this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
+    this.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
+    this.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
     
     // Create Java resource files
     mkdirp(resourceDir);
