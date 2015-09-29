@@ -17,9 +17,9 @@ apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'groovy'
-apply plugin: 'docker'
 apply from: 'gradle/conf/ide.gradle'
 apply from: 'gradle/conf/sonar.gradle'
+apply from: 'gradle/conf/docker.gradle'
 defaultTasks 'bootRun'
 
 
@@ -35,8 +35,6 @@ bootRun {
     addResources = false
 }
 
-
-
 if (project.hasProperty('prod')) {
     apply from: 'gradle/conf/profiles/profile_prod.gradle'
 } else if (project.hasProperty('fast')) {
@@ -45,7 +43,6 @@ if (project.hasProperty('prod')) {
   apply from: 'gradle/conf/profiles/profile_dev.gradle'
 }
 
-group = '<%= dockerreponame %>'
 version = '0.0.1-SNAPSHOT'
 
 description = ''
@@ -141,18 +138,6 @@ dependencies {
     testCompile group: 'org.jbehave', name: 'jbehave-core', version: jbehave_version
     testCompile group: 'org.jbehave', name: 'jbehave-spring', version: jbehave_version
 
-}
-
-task buildDocker(type: Docker, dependsOn: build) {
-  push = false
-  applicationName = jar.baseName
-  dockerfile = file('src/main/docker/Dockerfile')
-  doFirst {
-    copy {
-      from jar
-      into stageDir
-    }
-  }
 }
 
 clean {

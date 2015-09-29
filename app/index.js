@@ -142,6 +142,7 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
 
     this.template('gradle/conf/sonar.gradle', 'gradle/conf/sonar.gradle', this, {});
+    this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
     
     //this.template('_mapstruct.gradle', conf + 'mapstruct.gradle', this, {'interpolate': interpolateRegex});
     this.copy('gradlew', 'gradlew');
