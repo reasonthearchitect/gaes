@@ -17,9 +17,9 @@ apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'groovy'
-apply plugin: 'eclipse'
 apply plugin: 'docker'
-apply from: 'gradle/conf/idea.gradle'
+apply from: 'gradle/conf/ide.gradle'
+apply from: 'gradle/conf/sonar.gradle'
 defaultTasks 'bootRun'
 
 
@@ -35,14 +35,14 @@ bootRun {
     addResources = false
 }
 
-apply from: 'sonar.gradle'
+
 
 if (project.hasProperty('prod')) {
-    apply from: 'conf/profile_prod.gradle'
+    apply from: 'gradle/conf/profiles/profile_prod.gradle'
 } else if (project.hasProperty('fast')) {
-    apply from: 'conf/profile_fast.gradle'
+    apply from: 'gradle/conf/profiles/profile_fast.gradle'
 } else {
-  apply from: 'conf/profile_dev.gradle'
+  apply from: 'gradle/conf/profiles/profile_dev.gradle'
 }
 
 group = '<%= dockerreponame %>'

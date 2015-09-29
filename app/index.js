@@ -133,18 +133,17 @@ ScrippsGenerator.prototype.app = function app() {
     this.template('_build.gradle', 'build.gradle', this, {});
     this.template('_settings.gradle', 'settings.gradle', this, {});  
     this.template('_gradle.properties', 'gradle.properties', this, {});
-    this.template('_sonar.gradle', 'sonar.gradle', this, {});
     this.copy('src/main/docker/_Dockerfile', 'src/main/docker/Dockerfile');
     // Create the conf folder.
     mkdirp(conf);
 
-    this.template('_profile_dev.gradle', conf + 'profile_dev.gradle', this, {'interpolate': interpolateRegex});
-    this.template('_profile_prod.gradle', conf + 'profile_prod.gradle', this, {'interpolate': interpolateRegex});
-    this.template('_profile_fast.gradle', conf + 'profile_fast.gradle', this, {'interpolate': interpolateRegex});
+    this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
+    this.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
+    this.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
 
+    this.template('gradle/conf/sonar.gradle', 'gradle/conf/sonar.gradle', this, {});
+    
     //this.template('_mapstruct.gradle', conf + 'mapstruct.gradle', this, {'interpolate': interpolateRegex});
-    this.template('_gatling.gradle', conf + 'gatling.gradle', this, {});
-    this.template('_liquibase.gradle', conf + 'liquibase.gradle', this, {});
     this.copy('gradlew', 'gradlew');
 
     this.copy('gradlew.bat', 'gradlew.bat');
@@ -153,7 +152,7 @@ ScrippsGenerator.prototype.app = function app() {
     
 
     //gradle
-    this.copy('gradle/conf/idea.gradle', 'gradle/conf/idea.gradle');
+    this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
     
     // Create Java resource files
     mkdirp(resourceDir);
