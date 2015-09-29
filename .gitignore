@@ -39,11 +39,7 @@ local.properties
 *.ids
 *.orig
 
-######################
-# Gradle
-######################
-.gradle/**
-!**/gradle-wrapper.jar
+
 
 ######################
 # Package Files
@@ -52,6 +48,11 @@ local.properties
 *.war
 *.ear
 *.db
+
+######################
+# Gradle
+######################
+.gradle/**
 
 ######################
 # Windows
@@ -100,4 +101,4 @@ Desktop.ini
 ######################
 # Gradle Wrapper
 ######################
-!gradle/wrapper/gradle-wrapper.jar
+!app/templates/gradle/wrapper/gradle-wrapper.jar
