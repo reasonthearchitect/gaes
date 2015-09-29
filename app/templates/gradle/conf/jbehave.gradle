@@ -1,0 +1,4 @@
+dependencies {
+    testCompile group: 'org.jbehave', name: 'jbehave-core', version: jbehave_version
+    testCompile group: 'org.jbehave', name: 'jbehave-spring', version: jbehave_version
+}

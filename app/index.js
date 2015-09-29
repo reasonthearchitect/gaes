@@ -155,7 +155,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
     this.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
     this.copy('gradle/conf/unittest.gradle', 'gradle/conf/unittest.gradle');
-
+    this.copy('gradle/conf/jbehave.gradle', 'gradle/conf/jbehave.gradle');
+    this.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
     // profiles
     this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
     this.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
