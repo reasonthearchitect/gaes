@@ -64,12 +64,41 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             },
             message: '(3/' + questions + ') What is your Docker repo?',
             default: 'reasonthearchitect'
+        },
+        {
+            type: 'input',
+            name: 'subreponame',
+            validate: function (input) {
+                if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
+                return 'The subrepo name you have provided is not a valid Java package name.';
+            },
+            message: '(4/' + questions + ') What is your Docker subrepo name?',
+            default: null
+        },
+        {
+            type: 'input',
+            name: 'ports',
+            message: '(5/' + questions + ') What ports do you want to address?',
+            default: null
+        },
+        {
+            type: 'input',
+            name: 's3bucket',
+            message: '(6/' + questions + ') What is the name of your s3 bucket?',
+            default: null
         }
+
     ];
+
+
 
     this.baseName               = this.config.get('baseName');
     this.packageName            = this.config.get('packageName');
     this.dockerreponame         = this.config.get('dockerreponame');
+    this.subreponame            = this.config.get('subreponame');
+    this.ports                  = this.config.get('ports');
+    this.s3bucket               = this.config.get('s3bucket');
+
     this.packageNameGenerated   = '';
     var generated               = "generated";
     
@@ -93,6 +122,9 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             this.elastic                = "yes";
             this.packageName            = props.packageName;
             this.dockerreponame         = props.dockerreponame;
+            this.subreponame            = props.subreponame;
+            this.ports                  = props.ports;
+            this.s3bucket               = props.s3bucket;
             var generated               = ".generated";
             this.packageNameGenerated   = props.packageName +  generated;
             console.log(this.packageNameGenerated);
@@ -116,6 +148,7 @@ ScrippsGenerator.prototype.app = function app() {
     var interpolateRegex = /<%=([\s\S]+?)%>/g; // so that tags in templates do not get mistreated as _ templates
 
     // Remove old files
+    setUoCircleCi(this);
 
     // Note that both these are due to bugs in the Spring/Liquibase/Swagger solutions,
     this.copy(resourceDir + '/templates/error.html', resourceDir + 'templates/error.html');
@@ -131,6 +164,9 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.template('_build.gradle', 'build.gradle', this, {});
+
+    this.template('_circle.yml', 'circle.yml', this, {});
+
     this.template('_settings.gradle', 'settings.gradle', this, {});  
     this.template('_gradle.properties', 'gradle.properties', this, {});
     this.copy('src/main/docker/_Dockerfile', 'src/main/docker/Dockerfile');
@@ -233,7 +269,18 @@ ScrippsGenerator.prototype.app = function app() {
     this.config.set('packageNameGenerated', this.packageNameGenerated);
     this.config.set('packageFolder',        packageFolder);
     this.config.set('dockerreponame',       this.dockerreponame);
+
+    this.config.set('subreponame',          this.subreponame);
+    this.config.set('ports',                this.ports);
+    this.config.set('s3bucket',             this.s3bucket);
+
 };
+
+function setUoCircleCi(thing) {
+    thing.template('_circle.yml', 'circle.yml', this, {});
+    thing.template('s3/_Dockerrun.aws.json.template', 's3/Dockerrun.aws.json.template', this, {});
+    thing.template('s3/_create_docker_run_file.sh', 's3/create_docker_run_file.sh', this, {});
+}
 
 
 ScrippsGenerator.prototype._injectDependenciesAndConstants = function _injectDependenciesAndConstants() {

@@ -1,0 +1,27 @@
+machine:
+  services:
+    - docker
+  environment:
+    TAG: $CIRCLE_BRANCH-$CIRCLE_SHA1
+    DOCKER_IMAGE: <%= dockerreponame %>/<%= subreponame %>:$TAG
+  python:
+    version: 2.7.3
+  java:
+    version: oraclejdk8
+
+dependencies:
+  override:
+    - ./gradlew build
+    - echo "DOCKER_IMAGE is $DOCKER_IMAGE"
+    - docker info
+    - docker build -t $DOCKER_IMAGE .
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+    - echo "Pushing  $DOCKER_IMAGE"
+    - docker push $DOCKER_IMAGE
+    - sh ./s3/create_docker_run_file.sh $TAG
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - echo 'for some reason I cannot get this to run and so I am hacking away in the dependancies override section.'

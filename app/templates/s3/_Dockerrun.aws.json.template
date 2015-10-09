@@ -1,0 +1,16 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "<DEPLOYMENT_BUCKET>",
+    "Key": "<AUTHENTICATION_KEY>"
+  },
+  "Image": {
+    "Name": "<%= dockerreponame %>/<%= subreponame %>:<TAG>",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "<%= ports %>"
+    }
+  ]
+}
