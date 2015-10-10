@@ -1,0 +1,5 @@
+dependencies {
+	compile group: 'com.amazonaws', name: 'aws-java-sdk', 			version: aws_version
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', 	version: aws_version
+	compile group: 'com.amazonaws', name: 'DynamoDBLocal', 			version: dynamo_db_local
+}

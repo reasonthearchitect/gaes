@@ -1,0 +1,10 @@
+dependencies {
+	compile group: 		'com.thinkaurelius.titan', 	name: 'titan-core', 						version: titan_version
+	compile group: 		'com.thinkaurelius.titan', 	name: 'titan-es', 							version: titan_version
+	compile group: 		'com.tinkerpop.gremlin', 	name: 'gremlin-groovy', 					version: tinkerpop_version
+	compile group: 		'com.tinkerpop.gremlin', 	name: 'gremlin-java', 						version: tinkerpop_version
+	compile group: 		'com.amazonaws', 			name: 'dynamodb-titan054-storage-backend', 	version: dynamo_aws_storage_backend_version
+
+	testCompile group: 	'com.thinkaurelius.titan', 	name: 'titan-test', 						version: titan_version
+	testCompile group: 	'com.tinkerpop.gremlin', 	name: 'gremlin-test', 						version: tinkerpop_version
+}

@@ -43,7 +43,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
                 return 'Your application name cannot contain special characters or a blank space, using the default name instead';
             },
             message: '(1/' + questions + ') What is the base name of your application?',
-            default: 'scripps'
+            default: 'test'
         },
         {
             type: 'input',
@@ -53,7 +53,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
                 return 'The package name you have provided is not a valid Java package name.';
             },
             message: '(2/' + questions + ') What is your default Java package name?',
-            default: 'com.scripps.myapp'
+            default: 'com.tek.myservice'
         },
         {
             type: 'input',
@@ -73,19 +73,19 @@ ScrippsGenerator.prototype.askFor = function askFor() {
                 return 'The subrepo name you have provided is not a valid Java package name.';
             },
             message: '(4/' + questions + ') What is your Docker subrepo name?',
-            default: null
+            default: 'sub'
         },
         {
             type: 'input',
             name: 'ports',
             message: '(5/' + questions + ') What ports do you want to address?',
-            default: null
+            default: '8080'
         },
         {
             type: 'input',
             name: 's3bucket',
             message: '(6/' + questions + ') What is the name of your s3 bucket?',
-            default: null
+            default: 'test'
         }
 
     ];
@@ -181,8 +181,10 @@ ScrippsGenerator.prototype.app = function app() {
     
 
     //gradle
+    this.template('gradle/conf/_aws.gradle', 'gradle/conf/aws.gradle', this, {});
     this.template('gradle/conf/test/sonar.gradle', 'gradle/conf/test/sonar.gradle', this, {});
     this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
+    this.template('gradle/conf/_titan.gradle', 'gradle/conf/titan.gradle', this, {});
     this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
     this.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
     this.copy('gradle/conf/boot.gradle', 'gradle/conf/boot.gradle');
@@ -211,6 +213,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     // Create Java files
     this.template('src/main/java/package/_Application.java', javaDir + '/Application.java', this, {});
+    this.template('src/main/java/package/_MakeMeHappy.groovy', javaDir + '/MakeMeHappy.groovy', this, {});
     this.template('src/main/java/package/config/_Constants.java', javaDir + 'generated/config/Constants.java', this, {});
     //this.template('src/main/java/package/_ApplicationWebXml.java', javaDir + '/ApplicationWebXml.java', this, {});
     this.template('src/main/java/package/aop/logging/_LoggingAspect.java', javaDir + 'generated/aop/logging/LoggingAspect.java', this, {});
@@ -246,6 +249,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.template('src/main/java/package/web/rest/util/_PaginationUtil.java', javaDir + 'generated/web/rest/util/PaginationUtil.java', this, {});
         
     this.template('src/main/java/package/config/_ElasticConfiguration.java', javaDir + 'generated/config/ElasticConfiguration.java', this, {});
+    this.template('src/main/java/package/config/_TitanConfiguration.java', javaDir + 'generated/config/TitanConfiguration.java', this, {});
+        
     //this.template('src/main/java/package/security/_Http401UnauthorizedEntryPoint.java', javaDir + 'security/Http401UnauthorizedEntryPoint.java', this, {});
     
     // Create Test Java files

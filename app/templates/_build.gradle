@@ -21,6 +21,8 @@ apply from: 'gradle/conf/ide.gradle'
 apply from: 'gradle/conf/test/unittest.gradle'
 apply from: 'gradle/conf/test/jbehave.gradle'
 apply from: 'gradle/conf/utils.gradle'
+apply from: 'gradle/conf/aws.gradle'
+apply from: 'gradle/conf/titan.gradle'
 
 sourceCompatibility=1.8
 targetCompatibility=1.8

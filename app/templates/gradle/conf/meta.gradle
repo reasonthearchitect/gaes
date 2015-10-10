@@ -13,6 +13,7 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/releases' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'http://repo.maven.apache.org/maven2' }
+    maven{ url 'http://dynamodb-local.s3-website-us-west-2.amazonaws.com/release' }
 }
 
 configurations.all {
@@ -22,5 +23,6 @@ configurations.all {
     force group: 'com.fasterxml.jackson.core',  name: 'jackson-core',       version: jackson_version
     force group: 'com.fasterxml.jackson.core',  name: 'jackson-databind',   version: jackson_version
     force group: 'joda-time',                   name: 'joda-time',          version: joda_time_version
+    force group: 'com.google.guava',            name: 'guava',              version: force_google_guave_version
   }
 }
