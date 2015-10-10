@@ -237,8 +237,14 @@ ScrippsGenerator.prototype.app = function app() {
     this.template('src/main/java/package/web/rest/errors/_ParameterizedErrorDTO.java', javaDir + 'generated/web/rest/errors/ParameterizedErrorDTO.java', this, {});
 
 
-    this.template('src/main/java/package/web/rest/_LogsRest.java', javaDir + 'generated/web/rest/LogsRest.java', this, {});
-    this.template('src/main/java/package/web/rest/dto/_LoggerDto.java', javaDir + 'generated/web/rest/dto/LoggerDto.java', this, {});
+    console.log('*********************************************************************');
+    console.log('');
+    console.log('please add the loggin rest endpoint when you have the time.');
+    console.log('');
+    console.log('*********************************************************************');
+
+    //this.template('src/main/java/package/web/rest/_LogsRest.java', javaDir + 'generated/web/rest/LogsRest.java', this, {});
+    //this.template('src/main/java/package/web/rest/dto/_LoggerDto.java', javaDir + 'generated/web/rest/dto/LoggerDto.java', this, {});
 
     this.template('src/main/java/package/domain/util/_CustomLocalDateSerializer.java', javaDir + 'generated/domain/util/CustomLocalDateSerializer.java', this, {});
     this.template('src/main/java/package/domain/util/_CustomDateTimeSerializer.java', javaDir + 'generated/domain/util/CustomDateTimeSerializer.java', this, {});

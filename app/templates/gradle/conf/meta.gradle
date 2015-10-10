@@ -6,6 +6,11 @@ if (project.hasProperty('prod')) {
   apply from: 'gradle/conf/profiles/profile_dev.gradle'
 }
 
+configurations {
+ compile.exclude group:'ch.qos.logback'
+}
+
+
 repositories {
     maven { url 'http://repo.spring.io/milestone' }
     maven { url 'http://repo.spring.io/snapshot' }

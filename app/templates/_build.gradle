@@ -9,6 +9,15 @@ buildscript {
     }
 }
 
+configurations {
+  all*.exclude group: 'commons-logging'
+  all*.exclude group: 'log4j'
+  //  compile.exclude group:'ch.qos.logback'
+    //compile.exclude group:'org.slf4j'
+  //  compile.exclude group:'log4j'
+}
+
+
 apply from: 'gradle/conf/groovy.gradle'
 apply from: 'gradle/conf/lombok.gradle'
 apply from: 'gradle/conf/test/sonar.gradle'
