@@ -164,6 +164,9 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.template('_build.gradle', 'build.gradle', this, {});
+    this.template('_dynamodb-titan-storage-backend-cfn.json', 'dynamodb-titan-storage-backend-cfn.json', this, {});
+    
+        
 
     this.template('_circle.yml', 'circle.yml', this, {});
 
