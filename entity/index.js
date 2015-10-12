@@ -39,6 +39,8 @@ var EntityGenerator = module.exports = function EntityGenerator(args, options, c
 
     this.baseName = this.config.get('baseName');
     this.packageName = this.config.get('packageName');
+    this.indexname = this.config.get('indexname');
+
     this.packageFolder = this.config.get('packageFolder');
     this.elastic = this.config.get('elastic');
     this.sql = this.config.get('sql');
@@ -267,6 +269,9 @@ EntityGenerator.prototype.files = function files() {
         'src/main/groovy/' + this.packageFolder + '/domain/search/' +    this.entityClass + '.groovy', this, {});
     this.template('src/main/groovy/package/repository/search/_EntitySearchRepository.groovy',
         'src/main/groovy/' + this.packageFolder + '/repository/search/I' +    this.entityClass + 'SearchRepository.groovy', this, {});
+
+    this.template('src/test/groovy/package/it/repository/search/_SearchRepositoryItSpec.groovy',
+        'src/test/groovy/' + this.packageFolder + '/it/repository/search/' +    this.entityClass + 'SearchRepositoryItSpec.groovy', this, {});
 
 };
 

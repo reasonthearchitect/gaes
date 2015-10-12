@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * A <%= entityClass %>.
  */
-@Document(indexName = "CHANGE_ME", type="<%= entityInstance.toLowerCase() %>")
+@Document(indexName = "<%=indexname%>", type="<%= entityInstance.toLowerCase() %>")
 class <%= entityClass %> implements Serializable {
 
     @Id

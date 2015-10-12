@@ -20,6 +20,10 @@ bootRun {
     addResources = false
 }
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
+
 dependencies {
 	compile group: 'org.springframework.boot',      name: 'spring-boot-actuator'
     compile group: 'org.springframework.boot',      name: 'spring-boot-starter-security'
@@ -27,9 +31,10 @@ dependencies {
     compile group: 'org.springframework.boot',      name: 'spring-boot-loader-tools'
     compile group: 'org.springframework.boot',      name: 'spring-boot-starter-logging'
     compile group: 'org.springframework.boot',      name: 'spring-boot-starter-aop'
-    compile(group: 'org.springframework.boot',      name: 'spring-boot-starter-web') {
+    compile ('org.springframework.boot:spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
     }
+
     compile(group: 'org.springframework',           name: 'spring-context-support') {
         exclude(module: 'quartz')
     }

@@ -6,9 +6,6 @@ if (project.hasProperty('prod')) {
   apply from: 'gradle/conf/profiles/profile_dev.gradle'
 }
 
-configurations {
- compile.exclude group:'ch.qos.logback'
-}
 
 repositories {
 

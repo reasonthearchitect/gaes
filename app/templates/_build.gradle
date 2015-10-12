@@ -5,16 +5,16 @@ buildscript {
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE')
+        //classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
         //classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 configurations {
   all*.exclude group: 'commons-logging'
-  all*.exclude group: 'log4j'
+  //all*.exclude group: 'log4j'
   //  compile.exclude group:'ch.qos.logback'
     //compile.exclude group:'org.slf4j'
-  //  compile.exclude group:'log4j'
 }
 
 
@@ -27,8 +27,8 @@ apply from: 'gradle/conf/jackson.gradle'
 apply from: 'gradle/conf/meta.gradle'
 apply from: 'gradle/conf/ide.gradle'
 apply from: 'gradle/conf/utils.gradle'
-apply from: 'gradle/conf/aws.gradle'
-apply from: 'gradle/conf/titan.gradle'
+//apply from: 'gradle/conf/aws.gradle'
+//apply from: 'gradle/conf/titan.gradle'
 
 apply from: 'gradle/conf/test/unittest.gradle'
 apply from: 'gradle/conf/test/jbehave.gradle'

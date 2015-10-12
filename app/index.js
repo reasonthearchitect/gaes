@@ -32,9 +32,9 @@ ScrippsGenerator.prototype.askFor = function askFor() {
 
     console.log('\nWelcome to the Scripps Generator v' + packagejs.version + '\n');
     var insight = this.insight();
-    var questions = 3; // making questions a variable to avoid updating each question by hand when adding additional options
+    var questions = 8; // making questions a variable to avoid updating each question by hand when adding additional options
 
-    var prompts = [
+     var prompts = [
         {
             type: 'input',
             name: 'baseName',
@@ -54,6 +54,16 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             },
             message: '(2/' + questions + ') What is your default Java package name?',
             default: 'com.tek.myservice'
+        },
+        {
+            type: 'input',
+            name: 'indexname',
+            validate: function (input) {
+                if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
+                return 'The package name you have provided is not a valid index name.';
+            },
+            message: '(2/' + questions + ') What is your default index name?',
+            default: 'myindex'
         },
         {
             type: 'input',
@@ -94,6 +104,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
 
     this.baseName               = this.config.get('baseName');
     this.packageName            = this.config.get('packageName');
+    this.indexname            = this.config.get('indexname');
     this.dockerreponame         = this.config.get('dockerreponame');
     this.subreponame            = this.config.get('subreponame');
     this.ports                  = this.config.get('ports');
@@ -122,6 +133,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             this.elastic                = "yes";
             this.packageName            = props.packageName;
             this.dockerreponame         = props.dockerreponame;
+            this.indexname              = props.indexname;
             this.subreponame            = props.subreponame;
             this.ports                  = props.ports;
             this.s3bucket               = props.s3bucket;
@@ -141,7 +153,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     var packageFolder = this.packageName.replace(/\./g, '/');
     var javaDir = 'src/main/java/' + packageFolder + '/';
-    var groovtTest = 'src/test/groovy/' + packageFolder + '/';
+    var groovyTest = 'src/test/groovy/' + packageFolder + '/';
     var resourceDir = 'src/main/resources/';
     var conf = "conf/"
     var webappDir = 'src/main/webapp/';
@@ -152,7 +164,11 @@ ScrippsGenerator.prototype.app = function app() {
 
     //placeholders for groovy.
     this.copy('placeholder', 'src/main/groovy/placeholder');
-    this.copy('placeholder', 'src/test/groovy/placeholder')
+    //this.copy('placeholder', 'src/test/groovy/placeholder');
+    this.template('src/test/groovy/package/it/_AbstractItTest.groovy', groovyTest + 'it/AbstractItTest.groovy', this, {});
+    //AbstractItTest
+
+
 
     // Note that both these are due to bugs in the Spring/Liquibase/Swagger solutions,
     this.copy(resourceDir + '/templates/error.html', resourceDir + 'templates/error.html');
@@ -189,9 +205,10 @@ ScrippsGenerator.prototype.app = function app() {
 
     //gradle
     this.template('gradle/conf/_aws.gradle', 'gradle/conf/aws.gradle', this, {});
+    //this.template('gradle/conf/_titan.gradle', 'gradle/conf/titan.gradle', this, {});
+    
     this.template('gradle/conf/test/sonar.gradle', 'gradle/conf/test/sonar.gradle', this, {});
     this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
-    this.template('gradle/conf/_titan.gradle', 'gradle/conf/titan.gradle', this, {});
     this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
     this.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
     this.copy('gradle/conf/boot.gradle', 'gradle/conf/boot.gradle');
@@ -220,7 +237,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     // Create Java files
     this.template('src/main/java/package/_Application.java', javaDir + '/Application.java', this, {});
-    this.template('src/main/java/package/_MakeMeHappy.groovy', javaDir + '/MakeMeHappy.groovy', this, {});
+    //this.template('src/main/java/package/_MakeMeHappy.groovy', javaDir + '/MakeMeHappy.groovy', this, {});
     this.template('src/main/java/package/config/_Constants.java', javaDir + 'generated/config/Constants.java', this, {});
     //this.template('src/main/java/package/_ApplicationWebXml.java', javaDir + '/ApplicationWebXml.java', this, {});
     this.template('src/main/java/package/aop/logging/_LoggingAspect.java', javaDir + 'generated/aop/logging/LoggingAspect.java', this, {});
@@ -262,7 +279,7 @@ ScrippsGenerator.prototype.app = function app() {
     this.template('src/main/java/package/web/rest/util/_PaginationUtil.java', javaDir + 'generated/web/rest/util/PaginationUtil.java', this, {});
         
     this.template('src/main/java/package/config/_ElasticConfiguration.java', javaDir + 'generated/config/ElasticConfiguration.java', this, {});
-    this.template('src/main/java/package/config/_TitanConfiguration.java', javaDir + 'generated/config/TitanConfiguration.java', this, {});
+    //this.template('src/main/java/package/config/_TitanConfiguration.java', javaDir + 'generated/config/TitanConfiguration.java', this, {});
         
     //this.template('src/main/java/package/security/_Http401UnauthorizedEntryPoint.java', javaDir + 'security/Http401UnauthorizedEntryPoint.java', this, {});
     
@@ -287,6 +304,8 @@ ScrippsGenerator.prototype.app = function app() {
     this.config.set('packageNameGenerated', this.packageNameGenerated);
     this.config.set('packageFolder',        packageFolder);
     this.config.set('dockerreponame',       this.dockerreponame);
+    this.config.set('indexname',            this.indexname);
+
 
     this.config.set('subreponame',          this.subreponame);
     this.config.set('ports',                this.ports);

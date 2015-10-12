@@ -28,7 +28,8 @@ import static org.jbehave.core.reporters.Format.*;
 @SpringApplicationConfiguration(classes = Application.class)
 @AcceptanceTest
 @WebAppConfiguration
-@IntegrationTest("server.port:0")public abstract class AbstractSpringJBehaveStory extends JUnitStory {
+@IntegrationTest("server.port:0")
+public abstract class AbstractSpringJBehaveStory extends JUnitStory {
 
     private static final int STORY_TIMEOUT = 120;
 
