@@ -106,26 +106,26 @@ StackGenerator.prototype.askForFields = function askForFields() {
 StackGenerator.prototype.buildStack = function buildStack() {
 
 	var packageFolder = this.packageName.replace(/\./g, '/');
-    var javaDir = 'src/main/java/' + packageFolder + '/';
+    var groovyDir = 'src/main/groovy/' + packageFolder + '/';
     var groovyTest = 'src/test/groovy/' + packageFolder + '/test/';
     var resourceDir = 'src/main/resources/';
 
     var interpolateRegex = /<%=([\s\S]+?)%>/g; // so that tags in templates do not get mistreated as _ templates
 
     if (this.business == 'yes') {
-		this.template('src/main/java/package/business/_IBusiness.java', javaDir + 'business/I' +    this.entityClass + 'Business.java', this, {});
-        this.template('src/main/java/package/business/impl/_Business.java', javaDir + 'business/impl/' +    this.entityClass + 'Business.java', this, {});
+		this.template('src/main/groovy/package/business/_IBusiness.groovy', groovyDir + 'business/I' +    this.entityClass + 'Business.groovy', this, {});
+        this.template('src/main/groovy/package/business/impl/_Business.groovy', groovyDir + 'business/impl/' +    this.entityClass + 'Business.groovy', this, {});
         this.template('src/test/groovy/package/business/_BusinessUnitSpec.groovy', groovyTest + 'business/' +    this.entityClass + 'BusinessUnitSpec.groovy', this, {});
     }
 
     if (this.facade == 'yes') {
-    	this.template('src/main/java/package/facade/_IFacade.java', javaDir + 'facade/I' +    this.entityClass + 'Facade.java', this, {});
-        this.template('src/main/java/package/facade/impl/_Facade.java', javaDir + 'facade/impl/' +    this.entityClass + 'Facade.java', this, {});
+    	this.template('src/main/groovy/package/facade/_IFacade.groovy', groovyDir + 'facade/I' +    this.entityClass + 'Facade.groovy', this, {});
+        this.template('src/main/groovy/package/facade/impl/_Facade.groovy', groovyDir + 'facade/impl/' +    this.entityClass + 'Facade.groovy', this, {});
         this.template('src/test/groovy/package/facade/_FacadeUnitSpec.groovy', groovyTest + 'facade/' +    this.entityClass + 'FacadeUnitSpec.groovy', this, {});
     }
 
     if (this.rest == 'yes') {
-    	this.template('src/main/java/package/web/rest/_Rest.java', javaDir + 'web/rest/' +    this.entityClass + 'Rest.java', this, {});
+    	this.template('src/main/groovy/package/web/rest/_Rest.groovy', groovyDir + 'web/rest/' +    this.entityClass + 'Rest.groovy', this, {});
         this.template('src/test/groovy/package/web/rest/_RestUnitSpec.groovy', groovyTest + 'web/rest/' +    this.entityClass + 'RestUnitSpec.groovy', this, {});
     }
 };

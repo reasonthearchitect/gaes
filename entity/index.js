@@ -266,7 +266,7 @@ EntityGenerator.prototype.files = function files() {
     this.template('src/main/groovy/package/domain/_ElasticEntity.groovy',
         'src/main/groovy/' + this.packageFolder + '/domain/search/' +    this.entityClass + '.groovy', this, {});
     this.template('src/main/groovy/package/repository/search/_EntitySearchRepository.groovy',
-        'src/main/groovy/' + this.packageFolder + '/repository/search/' +    this.entityClass + 'SearchRepository.groovy', this, {});
+        'src/main/groovy/' + this.packageFolder + '/repository/search/I' +    this.entityClass + 'SearchRepository.groovy', this, {});
 
 };
 

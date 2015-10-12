@@ -2,7 +2,7 @@ package <%=packageName%>.test.web.rest;
 
 import <%=packageName%>.web.rest.<%=entityClass%>Rest
 import <%=packageName%>.facade.I<%=entityClass%>Facade
-import <%=packageName%>.facade.dto.<%=entityClass%>Dto
+import <%=packageName%>.domain.search.<%=entityClass%>
 import org.springframework.http.HttpStatus
 
 import spock.lang.Specification
@@ -20,15 +20,15 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		setup:
 		def <%=entityInstance%>Facade = Mock(I<%=entityClass%>Facade)
 		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
-		def <%=entityInstance%>Dto = [id:1L] as <%=entityClass%>Dto;
+		def <%=entityInstance%> = [id:"1"] as <%=entityClass%>;
 
 		when:
-		def response = this.<%=entityInstance%>Rest.create<%=entityClass%>([] as <%=entityClass%>Dto);
+		def response = this.<%=entityInstance%>Rest.create<%=entityClass%>([] as <%=entityClass%>);
 
 		then: 
-		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>Dto;
+		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>;
 		response != null;
-		response.getBody().id == 1L;
+		response.getBody().id == "1";
 	}
 
 	def "make sure that we cannot post an entity with an id"() {
@@ -38,7 +38,7 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
 
 		when:
-		def response = this.<%=entityInstance%>Rest.create<%=entityClass%>([id:1L] as <%=entityClass%>Dto);
+		def response = this.<%=entityInstance%>Rest.create<%=entityClass%>([id:"1"] as <%=entityClass%>);
 
 		then:
 		0 * <%=entityInstance%>Facade.save(_);
@@ -51,15 +51,15 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		setup:
 		def <%=entityInstance%>Facade = Mock(I<%=entityClass%>Facade)
 		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
-		def <%=entityInstance%>Dto = [id:1L] as <%=entityClass%>Dto;
+		def <%=entityInstance%> = [id:"1"] as <%=entityClass%>;
 
 		when:
-		def response = this.<%=entityInstance%>Rest.update<%=entityClass%>([] as <%=entityClass%>Dto);
+		def response = this.<%=entityInstance%>Rest.update<%=entityClass%>([] as <%=entityClass%>);
 
 		then:
-		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>Dto;
+		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>;
 		response != null;
-		response.getBody().id == 1L;
+		response.getBody().id == "1";
 	}
 
 	def "make sure that we CAN update an entity with an id"() {
@@ -67,15 +67,15 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		setup:
 		def <%=entityInstance%>Facade = Mock(I<%=entityClass%>Facade)
 		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
-		def <%=entityInstance%>Dto = [id:1L] as <%=entityClass%>Dto;
+		def <%=entityInstance%> = [id:"1"] as <%=entityClass%>;
 
 		when:
-		def response = this.<%=entityInstance%>Rest.update<%=entityClass%>([] as <%=entityClass%>Dto);
+		def response = this.<%=entityInstance%>Rest.update<%=entityClass%>([] as <%=entityClass%>);
 
 		then:
-		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>Dto;
+		1 * <%=entityInstance%>Facade.save(_) >> <%=entityInstance%>;
 		response != null;
-		response.getBody().id == 1L;
+		response.getBody().id == "1";
 	}
 
 	def "delete an entity through the rest Api"(){
@@ -85,7 +85,7 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
 
 		when:
-		def result = this.<%=entityInstance%>Rest.delete<%=entityClass%>(1L);
+		def result = this.<%=entityInstance%>Rest.delete<%=entityClass%>("1");
 
 		then:
 		1 * <%=entityInstance%>Facade.delete(_)

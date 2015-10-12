@@ -150,6 +150,10 @@ ScrippsGenerator.prototype.app = function app() {
     // Remove old files
     setUoCircleCi(this);
 
+    //placeholders for groovy.
+    this.copy('placeholder', 'src/main/groovy/placeholder');
+    this.copy('placeholder', 'src/test/groovy/placeholder')
+
     // Note that both these are due to bugs in the Spring/Liquibase/Swagger solutions,
     this.copy(resourceDir + '/templates/error.html', resourceDir + 'templates/error.html');
     this.copy('src/main/webapp/README.md', 'src/main/webapp/README.md');

@@ -1,6 +1,6 @@
 package <%=packageNameGenerated%>;
 
-import com.tek.myservice.generated.config.TitanConfiguration
+import <%=packageNameGenerated%>.config.TitanConfiguration
 import com.thinkaurelius.titan.core.TitanGraph
 
 /**

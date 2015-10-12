@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE')
-        classpath('se.transmode.gradle:gradle-docker:1.2')
+        //classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -20,18 +20,19 @@ configurations {
 
 apply from: 'gradle/conf/groovy.gradle'
 apply from: 'gradle/conf/lombok.gradle'
-apply from: 'gradle/conf/test/sonar.gradle'
-apply from: 'gradle/conf/docker.gradle'
+//apply from: 'gradle/conf/docker.gradle'
 apply from: 'gradle/conf/metrics.gradle'
 apply from: 'gradle/conf/boot.gradle'
 apply from: 'gradle/conf/jackson.gradle'
 apply from: 'gradle/conf/meta.gradle'
 apply from: 'gradle/conf/ide.gradle'
-apply from: 'gradle/conf/test/unittest.gradle'
-apply from: 'gradle/conf/test/jbehave.gradle'
 apply from: 'gradle/conf/utils.gradle'
 apply from: 'gradle/conf/aws.gradle'
 apply from: 'gradle/conf/titan.gradle'
+
+apply from: 'gradle/conf/test/unittest.gradle'
+apply from: 'gradle/conf/test/jbehave.gradle'
+apply from: 'gradle/conf/test/sonar.gradle'
 
 sourceCompatibility=1.8
 targetCompatibility=1.8

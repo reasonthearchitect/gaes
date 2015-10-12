@@ -1,12 +1,12 @@
 package <%=packageName%>.business;
 
-import <%=packageName%>.domain.<%=entityClass%>;
+import <%=packageName%>.domain.search.<%=entityClass%>;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface I<%=entityClass%>Business {
+interface I<%=entityClass%>Business {
 
-	<%=entityClass%> findOne(Long id);
+	<%=entityClass%> findOne(String id);
 
 	<%=entityClass%> save(<%=entityClass%> <%=entityInstance%>);
 
