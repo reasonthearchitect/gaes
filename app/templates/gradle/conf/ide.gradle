@@ -10,6 +10,9 @@ configurations {
 idea {
     module {
         scopes.PROVIDED.plus += [configurations.provided]
+        testSourceDirs += file('src/jbehave/java')
+        testSourceDirs += file('src/jbehave/groovy')
+        testSourceDirs += file('src/jbehave/stories')
     }
 }
 
