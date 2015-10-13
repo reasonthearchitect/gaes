@@ -11,5 +11,5 @@ dependencies {
 
 
     testCompile group: 'org.springframework.boot',  name: 'spring-boot-starter-test'
-    testCompile group: 'org.springframework.boot',  name: 'spring-boot-starter-jetty'
+    //testCompile group: 'org.springframework.boot',  name: 'spring-boot-starter-jetty'
 }

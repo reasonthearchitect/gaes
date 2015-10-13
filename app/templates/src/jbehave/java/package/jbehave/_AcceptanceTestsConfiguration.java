@@ -1,4 +1,4 @@
-package <%=packageNameGenerated%>.config.jbehave;
+package <%=packageName%>.jbehave;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

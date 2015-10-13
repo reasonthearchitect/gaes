@@ -183,46 +183,19 @@ ScrippsGenerator.prototype.app = function app() {
     this.template('_README.md', 'README.md', this, {});
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
-    this.template('_build.gradle', 'build.gradle', this, {});
+    
     this.template('_dynamodb-titan-storage-backend-cfn.json', 'dynamodb-titan-storage-backend-cfn.json', this, {});
     
         
 
     this.template('_circle.yml', 'circle.yml', this, {});
 
-    this.template('_settings.gradle', 'settings.gradle', this, {});  
-    this.template('_gradle.properties', 'gradle.properties', this, {});
     this.copy('src/main/docker/_Dockerfile', 'src/main/docker/Dockerfile');
     // Create the conf folder.
     mkdirp(conf);
 
-    this.copy('gradlew', 'gradlew');
-
-    this.copy('gradlew.bat', 'gradlew.bat');
-    this.copy('gradle/wrapper/gradle-wrapper.jar', 'gradle/wrapper/gradle-wrapper.jar');
-    this.copy('gradle/wrapper/gradle-wrapper.properties', 'gradle/wrapper/gradle-wrapper.properties');
-    
-
-    //gradle
-    this.template('gradle/conf/_aws.gradle', 'gradle/conf/aws.gradle', this, {});
-    //this.template('gradle/conf/_titan.gradle', 'gradle/conf/titan.gradle', this, {});
-    
-    this.template('gradle/conf/test/sonar.gradle', 'gradle/conf/test/sonar.gradle', this, {});
-    this.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', this, {});
-    this.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
-    this.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
-    this.copy('gradle/conf/boot.gradle', 'gradle/conf/boot.gradle');
-    this.copy('gradle/conf/jackson.gradle', 'gradle/conf/jackson.gradle');
-    this.copy('gradle/conf/meta.gradle', 'gradle/conf/meta.gradle');
-    this.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
-    this.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
-    this.copy('gradle/conf/test/unittest.gradle', 'gradle/conf/test/unittest.gradle');
-    this.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
-    this.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
-    // profiles
-    this.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
-    this.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
-    this.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
+    setUpGradle(this);
+    setUpJbehave(this, packageFolder);
     
     // Create Java resource files
     mkdirp(resourceDir);
@@ -291,11 +264,10 @@ ScrippsGenerator.prototype.app = function app() {
     this.template(testResourceDir + 'config/_application.yml', testResourceDir + 'config/application.yml', this, {});
     this.template(testResourceDir + '_logback-test.xml', testResourceDir + 'logback-test.xml', this, {});
 
-    this.template('src/test/java/package/config/jbehave/_AbstractSpringJBehaveStory.java', testDir + 'generated/config/jbehave/AbstractSpringJBehaveStory.java', this, {});
-    this.template('src/test/java/package/config/jbehave/_AcceptanceTest.java', testDir + 'generated/config/jbehave/AcceptanceTest.java', this, {});
-    this.template('src/test/java/package/config/jbehave/_AcceptanceTestsConfiguration.java', testDir + 'generated/config/jbehave/AcceptanceTestsConfiguration.java', this, {});
-    this.template('src/test/java/package/config/jbehave/_Steps.java', testDir + 'generated/config/jbehave/Steps.java', this, {});
+   
+
 /*
+
     // Create Webapp
     mkdirp(webappDir);
 */
@@ -312,6 +284,61 @@ ScrippsGenerator.prototype.app = function app() {
     this.config.set('s3bucket',             this.s3bucket);
 
 };
+
+function setUpGradle(thing) {
+
+    thing.template('_build.gradle', 'build.gradle', this, {});
+    thing.template('_settings.gradle', 'settings.gradle', this, {});
+
+    thing.copy('gradlew', 'gradlew');
+    thing.template('_gradle.properties', 'gradle.properties', thing, {});
+    
+    thing.copy('gradlew.bat', 'gradlew.bat');
+    thing.copy('gradle/wrapper/gradle-wrapper.jar', 'gradle/wrapper/gradle-wrapper.jar');
+    thing.copy('gradle/wrapper/gradle-wrapper.properties', 'gradle/wrapper/gradle-wrapper.properties');
+
+    //gradle
+    thing.template('gradle/conf/_aws.gradle', 'gradle/conf/aws.gradle', thing, {});
+    //thing.template('gradle/conf/_titan.gradle', 'gradle/conf/titan.gradle', thing, {});
+    
+    thing.template('gradle/conf/test/sonar.gradle', 'gradle/conf/test/sonar.gradle', thing, {});
+    thing.template('gradle/conf/_docker.gradle', 'gradle/conf/docker.gradle', thing, {});
+    thing.copy('gradle/conf/ide.gradle', 'gradle/conf/ide.gradle');
+    thing.copy('gradle/conf/metrics.gradle', 'gradle/conf/metrics.gradle');
+    thing.copy('gradle/conf/boot.gradle', 'gradle/conf/boot.gradle');
+    thing.copy('gradle/conf/jackson.gradle', 'gradle/conf/jackson.gradle');
+    thing.copy('gradle/conf/meta.gradle', 'gradle/conf/meta.gradle');
+    thing.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
+    thing.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
+    thing.copy('gradle/conf/test/unittest.gradle', 'gradle/conf/test/unittest.gradle');
+    thing.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
+    thing.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
+    // profiles
+    thing.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
+    thing.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');
+    thing.copy('gradle/conf/profiles/profile_fast.gradle', 'gradle/conf/profiles/profile_fast.gradle');
+}
+
+function setUpJbehave(thing, packageFolder) {
+
+    var srcJavaDir = 'src/jbehave/java/package/jbehave/';
+    var targetJavaDir = 'src/jbehave/java/' + packageFolder + '/jbehave/';
+
+    thing.template(srcJavaDir + '_AbstractSpringJBehaveStory.java',       targetJavaDir + 'AbstractSpringJBehaveStory.java', this, {});
+    thing.template(srcJavaDir + '_AcceptanceTest.java',                   targetJavaDir + 'AcceptanceTest.java', this, {});
+    thing.template(srcJavaDir + '_AcceptanceTestsConfiguration.java',     targetJavaDir + 'AcceptanceTestsConfiguration.java', this, {});
+    thing.template(srcJavaDir + '_Steps.java',                            targetJavaDir + 'Steps.java', this, {});
+
+    var srcGroovyPackage = 'src/jbehave/groovy/package/jbehave/facade/';
+    var targetGroovyPackage = 'src/jbehave/groovy/' + packageFolder + '/jbehave/facade/';
+    thing.template(srcGroovyPackage + '_ExampleOfHowToBehave.groovy',     targetGroovyPackage + 'ExampleOfHowToBehave.groovy', this, {}); 
+
+    var srcStoryPackage = 'src/jbehave/stories/package/jbehave/facade/';
+    var targetStoryPackage = 'src/jbehave/stories/' + packageFolder + '/jbehave/facade/';
+    thing.template( srcStoryPackage + '_example_of_how_to_behave.story',     targetStoryPackage  + 'example_of_how_to_behave.story', this, {}); 
+
+       
+}//6381
 
 function setUoCircleCi(thing) {
     thing.template('_circle.yml', 'circle.yml', this, {});

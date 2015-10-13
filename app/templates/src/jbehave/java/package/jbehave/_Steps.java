@@ -1,4 +1,4 @@
-package <%=packageNameGenerated%>.config.jbehave;
+package <%=packageName%>.jbehave;
 
 import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
@@ -7,6 +7,4 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface Steps {
-
-}
+public @interface Steps { }

@@ -1,4 +1,4 @@
-package <%=packageNameGenerated%>.config.jbehave;
+package <%=packageName%>.jbehave;
 
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.annotation.DirtiesContext;

@@ -1,4 +1,4 @@
-package <%=packageNameGenerated%>.config.jbehave;
+package <%=packageName%>.jbehave;
 
 import <%=packageName%>.Application;
 import org.jbehave.core.configuration.Configuration;
