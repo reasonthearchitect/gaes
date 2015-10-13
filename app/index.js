@@ -153,7 +153,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     var packageFolder = this.packageName.replace(/\./g, '/');
     var javaDir = 'src/main/java/' + packageFolder + '/';
-    var groovyTest = 'src/test/groovy/' + packageFolder + '/';
+    var groovyItTest = 'src/integration/groovy/' + packageFolder + '/it/';
     var resourceDir = 'src/main/resources/';
     var conf = "conf/"
     var webappDir = 'src/main/webapp/';
@@ -165,8 +165,9 @@ ScrippsGenerator.prototype.app = function app() {
     //placeholders for groovy.
     this.copy('placeholder', 'src/main/groovy/placeholder');
     //this.copy('placeholder', 'src/test/groovy/placeholder');
-    this.template('src/test/groovy/package/it/_AbstractItTest.groovy', groovyTest + 'it/AbstractItTest.groovy', this, {});
+    this.template('src/integration/groovy/package/it/_AbstractItTest.groovy', groovyItTest + 'AbstractItTest.groovy', this, {});
     //AbstractItTest
+    this.copy('src/test/groovy/placeholder','src/test/groovy/placeholder');
 
 
 
@@ -257,9 +258,9 @@ ScrippsGenerator.prototype.app = function app() {
     //this.template('src/main/java/package/security/_Http401UnauthorizedEntryPoint.java', javaDir + 'security/Http401UnauthorizedEntryPoint.java', this, {});
     
     // Create Test Java files
-    var testDir = 'src/test/java/' + packageFolder + '/';
+    //var testDir = 'src/test/java/' + packageFolder + '/';
     var testResourceDir = 'src/test/resources/';
-    mkdirp(testDir);
+    //mkdirp(testDir);
 
     this.template(testResourceDir + 'config/_application.yml', testResourceDir + 'config/application.yml', this, {});
     this.template(testResourceDir + '_logback-test.xml', testResourceDir + 'logback-test.xml', this, {});
@@ -310,7 +311,8 @@ function setUpGradle(thing) {
     thing.copy('gradle/conf/meta.gradle', 'gradle/conf/meta.gradle');
     thing.copy('gradle/conf/groovy.gradle', 'gradle/conf/groovy.gradle');
     thing.copy('gradle/conf/lombok.gradle', 'gradle/conf/lombok.gradle');
-    thing.copy('gradle/conf/test/unittest.gradle', 'gradle/conf/test/unittest.gradle');
+    thing.copy('gradle/conf/test/unit.gradle', 'gradle/conf/test/unit.gradle');
+    thing.copy('gradle/conf/test/integration.gradle', 'gradle/conf/test/integration.gradle');
     thing.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
     thing.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
     // profiles

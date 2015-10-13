@@ -30,7 +30,8 @@ apply from: 'gradle/conf/utils.gradle'
 //apply from: 'gradle/conf/aws.gradle'
 //apply from: 'gradle/conf/titan.gradle'
 
-apply from: 'gradle/conf/test/unittest.gradle'
+apply from: 'gradle/conf/test/integration.gradle'
+apply from: 'gradle/conf/test/unit.gradle'
 apply from: 'gradle/conf/test/jbehave.gradle'
 apply from: 'gradle/conf/test/sonar.gradle'
 

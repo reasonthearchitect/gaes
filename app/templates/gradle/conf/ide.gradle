@@ -13,6 +13,7 @@ idea {
         testSourceDirs += file('src/jbehave/java')
         testSourceDirs += file('src/jbehave/groovy')
         testSourceDirs += file('src/jbehave/stories')
+        testSourceDirs += file('src/integration/groovy')
     }
 }
 
