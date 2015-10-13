@@ -270,8 +270,8 @@ EntityGenerator.prototype.files = function files() {
     this.template('src/main/groovy/package/repository/search/_EntitySearchRepository.groovy',
         'src/main/groovy/' + this.packageFolder + '/repository/search/I' +    this.entityClass + 'SearchRepository.groovy', this, {});
 
-    this.template('src/test/groovy/package/it/repository/search/_SearchRepositoryItSpec.groovy',
-        'src/test/groovy/' + this.packageFolder + '/it/repository/search/' +    this.entityClass + 'SearchRepositoryItSpec.groovy', this, {});
+    this.template('src/integration/groovy/package/it/repository/search/_SearchRepositoryItSpec.groovy',
+        'src/integration/groovy/' + this.packageFolder + '/it/repository/search/' +    this.entityClass + 'SearchRepositoryItSpec.groovy', this, {});
 
 };
 
