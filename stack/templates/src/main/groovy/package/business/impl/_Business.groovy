@@ -32,6 +32,6 @@ class <%=entityClass%>Business implements I<%=entityClass%>Business {
 
 	@Override
 	public void delete(<%=entityClass%> <%=entityInstance%>) {
-		this.<%=entityInstance%>Repository.delete(<%=entityInstance%>);
+		this.<%=entityInstance%>Repository.delete(<%=entityInstance%>.id)
 	}
 }

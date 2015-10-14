@@ -1,15 +1,13 @@
 package <%=packageName%>.it
 
 import <%=packageName%>.Application
-import org.junit.runner.RunWith
 import org.springframework.boot.test.IntegrationTest
-import org.springframework.boot.test.SpringApplicationConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.boot.test.SpringApplicationContextLoader
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 import spock.lang.Specification
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 abstract class  AbstractItTest extends Specification {

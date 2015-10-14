@@ -88,7 +88,23 @@ public class <%=entityClass%>RestUnitSpec extends Specification {
 		def result = this.<%=entityInstance%>Rest.delete<%=entityClass%>("1");
 
 		then:
+		1 * <%=entityInstance%>Facade.findOne(_) >> new <%=entityClass%>()
 		1 * <%=entityInstance%>Facade.delete(_)
+		result != null;
+	}
+
+	def "delete not called because no entity with the id exists"(){
+
+		setup:
+		def <%=entityInstance%>Facade = Mock(I<%=entityClass%>Facade)
+		this.<%=entityInstance%>Rest.<%=entityInstance%>Facade = <%=entityInstance%>Facade;
+
+		when:
+		def result = this.<%=entityInstance%>Rest.delete<%=entityClass%>("1");
+
+		then:
+		1 * <%=entityInstance%>Facade.findOne(_)
+		0 * <%=entityInstance%>Facade.delete(_)
 		result != null;
 	}
 }

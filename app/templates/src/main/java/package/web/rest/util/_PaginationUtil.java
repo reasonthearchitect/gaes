@@ -23,16 +23,15 @@ public class PaginationUtil {
         headers.add("X-Total-Count", "" + page.getTotalElements());
         String link = "";
         if ((page.getNumber() + 1) < page.getTotalPages()) {
-            link = "<" + (new URI(baseUrl +"?page=" + (page.getNumber() + 1) + "&size=" + page.getSize())).toString() + ">; rel=\"next\",";
+            headers.add("LINK-NEXT", "<" + (new URI(baseUrl + "?page=" + (page.getNumber() + 1) + "&size=" + page.getSize())).toString() + ">");
         }
         // prev link
         if ((page.getNumber()) > 0) {
-            link += "<" + (new URI(baseUrl +"?page=" + (page.getNumber() - 1) + "&size=" + page.getSize())).toString() + ">; rel=\"prev\",";
+            headers.add("LINK-PREV", "<" + (new URI(baseUrl +"?page=" + (page.getNumber() - 1) + "&size=" + page.getSize())).toString() + ">");
         }
         // last and first link
-        link += "<" + (new URI(baseUrl +"?page=" + (page.getTotalPages() - 1) + "&size=" + page.getSize())).toString() + ">; rel=\"last\",";
-        link += "<" + (new URI(baseUrl +"?page=" + 0 + "&size=" + page.getSize())).toString() + ">; rel=\"first\"";
-        headers.add(HttpHeaders.LINK, link);
+        headers.add("LINK-LAST", "<" + (new URI(baseUrl +"?page=" + (page.getTotalPages() - 1) + "&size=" + page.getSize())).toString() + ">");
+        headers.add("LINK-FIRST", "<" + (new URI(baseUrl +"?page=" + 0 + "&size=" + page.getSize()).toString()) + ">");
         return headers;
     }
 }

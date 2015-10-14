@@ -35,7 +35,7 @@ public class <%=entityClass%>Rest {
             return ResponseEntity.badRequest().header("Failure", "A new <%=entityInstance%> cannot already have an ID").body(null);
         }
         <%=entityClass%> result = this.<%=entityInstance%>Facade.save(<%=entityInstance%>);
-        return ResponseEntity.created(new URI("/api/<%=entityInstance%>s/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/v1/<%=entityInstance%>s/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("<%=entityInstance%>", result.getId().toString()))
                 .body(result);
     }
@@ -60,10 +60,15 @@ public class <%=entityClass%>Rest {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> delete<%=entityClass%>(@PathVariable String id) {
-        <%=entityClass%> <%=entityInstance%> = new <%=entityClass%>();
-        <%=entityInstance%>.setId(id);
-        this.<%=entityInstance%>Facade.delete();
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("<%=entityInstance%>", id.toString())).build();
+        <%=entityClass%> <%=entityInstance%> = this.<%=entityInstance%>Facade.findOne(id)
+        ResponseEntity result = null;
+        if (<%=entityInstance%> == null) {
+            result = ResponseEntity.noContent().header('failure', 'entity does not exist').body(null)
+        } else {
+            this.<%=entityInstance%>Facade.delete(<%=entityInstance%>);
+            result = ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("<%=entityInstance%>", id.toString())).build();
+        }
+        return result
     }
 
     @RequestMapping(value = "/<%=entityInstance%>s/{id}",
@@ -71,13 +76,17 @@ public class <%=entityClass%>Rest {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<<%=entityClass%>> get<%=entityClass%>(@PathVariable String id) {
-        return Optional.ofNullable(new ResponseEntity<>(<%=entityInstance%>Facade.findOne(id),
-                HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        <%=entityClass%> <%=entityInstance%> = <%=entityInstance%>Facade.findOne(id)
+        ResponseEntity result = null;
+        if (<%=entityInstance%> != null) {
+            result = new ResponseEntity<>(<%=entityInstance%>, HttpStatus.OK)
+        } else {
+            result = new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        }
+        return result
     }
-
     /**
-     * GET  /cats -> get all the cats.
+     * GET  /<%=entityInstance%>s -> get all the <%=entityInstance%>s.
      */
     @RequestMapping(value = "/<%=entityInstance%>s",
             method = RequestMethod.GET,
@@ -86,7 +95,7 @@ public class <%=entityClass%>Rest {
     public ResponseEntity<List<<%=entityClass%>>> getAll<%=entityClass%>s(Pageable pageable)
             throws URISyntaxException {
         Page<<%=entityClass%>> <%=entityInstance%>s = this.<%=entityInstance%>Facade.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(<%=entityInstance%>s, "/api/<%=entityInstance%>s");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(<%=entityInstance%>s, "/api/v1/<%=entityInstance%>s");
         return new ResponseEntity<>(<%=entityInstance%>s.getContent(), headers, HttpStatus.OK);
     }
 }
