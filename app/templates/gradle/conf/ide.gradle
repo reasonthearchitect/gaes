@@ -4,7 +4,6 @@ apply plugin: 'eclipse'
 
 configurations {
     provided
-    //compile.extendsFrom provided
 }
 
 idea {
@@ -14,6 +13,7 @@ idea {
         testSourceDirs += file('src/jbehave/groovy')
         testSourceDirs += file('src/jbehave/stories')
         testSourceDirs += file('src/integration/groovy')
+        testSourceDirs += file('src/functional/groovy')
     }
 }
 

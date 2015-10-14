@@ -161,6 +161,8 @@ ScrippsGenerator.prototype.app = function app() {
 
     // Remove old files
     setUoCircleCi(this);
+    setUpFunctional(this);
+    setUpFilters(this, packageFolder);
 
     //placeholders for groovy.
     this.copy('placeholder', 'src/main/groovy/placeholder');
@@ -341,6 +343,19 @@ function setUpJbehave(thing, packageFolder) {
 
        
 }//6381
+
+function setUpFilters(thing, packageFolder) {
+    thing.template('src/main/java/package/web/filter/_LifeTimeSessionAndRequestTokenFilter.java', 
+            'src/main/java/' + packageFolder + '/web/filter/LifeTimeSessionAndRequestTokenFilter.java', this, {});
+    
+    thing.template('src/main/java/package/web/_FilterRegistration.java', 
+            'src/main/java/' + packageFolder + '/web/FilterRegistration.java', this, {});
+}
+
+function setUpFunctional(thing) {
+    mkdirp('src/functional/groovy/');
+    thing.copy('gradle/conf/test/restassured.gradle', 'gradle/conf/test/restassured.gradle');
+}
 
 function setUoCircleCi(thing) {
     thing.template('_circle.yml', 'circle.yml', this, {});
