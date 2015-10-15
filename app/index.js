@@ -161,7 +161,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     // Remove old files
     setUoCircleCi(this);
-    setUpFunctional(this);
+    setUpFunctional(this, packageFolder);
     setUpFilters(this, packageFolder);
 
     //placeholders for groovy.
@@ -199,6 +199,8 @@ ScrippsGenerator.prototype.app = function app() {
 
     setUpGradle(this);
     setUpJbehave(this, packageFolder);
+    setUpLooging(this, packageFolder);
+
     
     // Create Java resource files
     mkdirp(resourceDir);
@@ -216,7 +218,6 @@ ScrippsGenerator.prototype.app = function app() {
     //this.template('src/main/java/package/_MakeMeHappy.groovy', javaDir + '/MakeMeHappy.groovy', this, {});
     this.template('src/main/java/package/config/_Constants.java', javaDir + 'generated/config/Constants.java', this, {});
     //this.template('src/main/java/package/_ApplicationWebXml.java', javaDir + '/ApplicationWebXml.java', this, {});
-    this.template('src/main/java/package/aop/logging/_LoggingAspect.java', javaDir + 'generated/aop/logging/LoggingAspect.java', this, {});
     this.template('src/main/java/package/config/apidoc/_SwaggerConfiguration.java', javaDir + 'generated/config/apidoc/SwaggerConfiguration.java', this, {});
 
     this.template('src/main/java/package/async/_ExceptionHandlingAsyncTaskExecutor.java', javaDir + 'generated/async/ExceptionHandlingAsyncTaskExecutor.java', this, {});
@@ -224,7 +225,6 @@ ScrippsGenerator.prototype.app = function app() {
 
     
     this.template('src/main/java/package/config/_JacksonConfiguration.java', javaDir + 'generated/config/JacksonConfiguration.java', this, {});
-    this.template('src/main/java/package/config/_LoggingAspectConfiguration.java', javaDir + 'generated/config/LoggingAspectConfiguration.java', this, {});
     this.template('src/main/java/package/config/_MetricsConfiguration.java', javaDir + 'generated/config/MetricsConfiguration.java', this, {});
 
 
@@ -290,8 +290,8 @@ ScrippsGenerator.prototype.app = function app() {
 
 function setUpGradle(thing) {
 
-    thing.template('_build.gradle', 'build.gradle', this, {});
-    thing.template('_settings.gradle', 'settings.gradle', this, {});
+    thing.template('_build.gradle', 'build.gradle', thing, {});
+    thing.template('_settings.gradle', 'settings.gradle', thing, {});
 
     thing.copy('gradlew', 'gradlew');
     thing.template('_gradle.properties', 'gradle.properties', thing, {});
@@ -328,39 +328,48 @@ function setUpJbehave(thing, packageFolder) {
     var srcJavaDir = 'src/jbehave/java/package/jbehave/';
     var targetJavaDir = 'src/jbehave/java/' + packageFolder + '/jbehave/';
 
-    thing.template(srcJavaDir + '_AbstractSpringJBehaveStory.java',       targetJavaDir + 'AbstractSpringJBehaveStory.java', this, {});
-    thing.template(srcJavaDir + '_AcceptanceTest.java',                   targetJavaDir + 'AcceptanceTest.java', this, {});
-    thing.template(srcJavaDir + '_AcceptanceTestsConfiguration.java',     targetJavaDir + 'AcceptanceTestsConfiguration.java', this, {});
-    thing.template(srcJavaDir + '_Steps.java',                            targetJavaDir + 'Steps.java', this, {});
+    thing.template(srcJavaDir + '_AbstractSpringJBehaveStory.java',       targetJavaDir + 'AbstractSpringJBehaveStory.java', thing, {});
+    thing.template(srcJavaDir + '_AcceptanceTest.java',                   targetJavaDir + 'AcceptanceTest.java', thing, {});
+    thing.template(srcJavaDir + '_AcceptanceTestsConfiguration.java',     targetJavaDir + 'AcceptanceTestsConfiguration.java', thing, {});
+    thing.template(srcJavaDir + '_Steps.java',                            targetJavaDir + 'Steps.java', thing, {});
 
     var srcGroovyPackage = 'src/jbehave/groovy/package/jbehave/facade/';
     var targetGroovyPackage = 'src/jbehave/groovy/' + packageFolder + '/jbehave/facade/';
-    thing.template(srcGroovyPackage + '_ExampleOfHowToBehave.groovy',     targetGroovyPackage + 'ExampleOfHowToBehave.groovy', this, {}); 
+    thing.template(srcGroovyPackage + '_ExampleOfHowToBehave.groovy',     targetGroovyPackage + 'ExampleOfHowToBehave.groovy', thing, {}); 
 
     var srcStoryPackage = 'src/jbehave/stories/package/jbehave/facade/';
     var targetStoryPackage = 'src/jbehave/stories/' + packageFolder + '/jbehave/facade/';
-    thing.template( srcStoryPackage + '_example_of_how_to_behave.story',     targetStoryPackage  + 'example_of_how_to_behave.story', this, {}); 
+    thing.template( srcStoryPackage + '_example_of_how_to_behave.story',     targetStoryPackage  + 'example_of_how_to_behave.story', thing, {}); 
 
        
 }//6381
 
-function setUpFilters(thing, packageFolder) {
-    thing.template('src/main/java/package/web/filter/_LifeTimeSessionAndRequestTokenFilter.java', 
-            'src/main/java/' + packageFolder + '/web/filter/LifeTimeSessionAndRequestTokenFilter.java', this, {});
-    
-    thing.template('src/main/java/package/web/_FilterRegistration.java', 
-            'src/main/java/' + packageFolder + '/web/FilterRegistration.java', this, {});
+function setUpLooging(thing, packageFolder) {
+    var javaDir = 'src/main/java/' + packageFolder + '/';
+    thing.template('src/main/java/package/logging/_LoggingAspect.java', javaDir + 'generated/logging/LoggingAspect.java', thing, {});
+    thing.template('src/main/java/package/config/_LoggingAspectConfiguration.java', javaDir + 'generated/config/LoggingAspectConfiguration.java', thing, {});
 }
 
-function setUpFunctional(thing) {
-    mkdirp('src/functional/groovy/');
+function setUpFilters(thing, packageFolder) {
+    thing.template('src/main/java/package/web/filter/_LifeTimeSessionAndRequestTokenFilter.java', 
+            'src/main/java/' + packageFolder + '/generated/web/filter/LifeTimeSessionAndRequestTokenFilter.java', thing, {});
+    
+    thing.template('src/main/java/package/web/_FilterRegistration.java', 
+            'src/main/java/' + packageFolder + '/generated/web/FilterRegistration.java', thing, {});
+}
+
+function setUpFunctional(thing, packageFolder) {
+    var srcFolder  = 'src/functional/groovy/package/functional/';
+    var destFolder = 'src/functional/groovy/' + packageFolder + '/functional/';
     thing.copy('gradle/conf/test/restassured.gradle', 'gradle/conf/test/restassured.gradle');
+    thing.template(srcFolder + '_AbstractFunctionTest.groovy', 
+        destFolder + 'AbstractFunctionTest.groovy', thing, {});
 }
 
 function setUoCircleCi(thing) {
-    thing.template('_circle.yml', 'circle.yml', this, {});
-    thing.template('s3/_Dockerrun.aws.json.template', 's3/Dockerrun.aws.json.template', this, {});
-    thing.template('s3/_create_docker_run_file.sh', 's3/create_docker_run_file.sh', this, {});
+    thing.template('_circle.yml', 'circle.yml', thing, {});
+    thing.template('s3/_Dockerrun.aws.json.template', 's3/Dockerrun.aws.json.template', thing, {});
+    thing.template('s3/_create_docker_run_file.sh', 's3/create_docker_run_file.sh', thing, {});
 }
 
 

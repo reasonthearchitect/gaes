@@ -1,6 +1,6 @@
 package <%=packageNameGenerated%>.config;
 
-import <%=packageNameGenerated%>.aop.logging.LoggingAspect;
+import <%=packageNameGenerated%>.logging.LoggingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;

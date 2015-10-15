@@ -16,7 +16,7 @@ public class FilterRegistration {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(lifeTimeSessionAndRequestTokenFilter());
-        registration.addUrlPatterns("/health/*");
+        registration.addUrlPatterns("/api/*");
         registration.setName("lifeTimeSessionAndRequestTokenFilter");
         return registration;
     }

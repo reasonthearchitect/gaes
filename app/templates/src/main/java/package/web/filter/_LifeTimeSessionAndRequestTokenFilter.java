@@ -35,17 +35,28 @@ public class LifeTimeSessionAndRequestTokenFilter implements Filter {
 
     private void doLifeTimeToken(final HttpServletRequest request, final HttpServletResponse response) {
         String lifetimeToken = request.getHeader(X_LIFE_TIME_TOKEN);
-        response.setHeader(X_LIFE_TIME_TOKEN, ( lifetimeToken != null) ? lifetimeToken : NO_LIFETIME_TOKEN);
+        if (lifetimeToken != null) {
+            response.setHeader(X_LIFE_TIME_TOKEN, lifetimeToken);
+        }
     }
 
     private void doSessionToken(final HttpServletRequest request, final HttpServletResponse response) {
         String sessionToken = request.getHeader(X_SESSION_TOKEN);
-        response.setHeader(X_SESSION_TOKEN, ( sessionToken != null) ? sessionToken : NO_SESSION_TOKEN);
+        if (sessionToken != null) {
+            response.setHeader(X_SESSION_TOKEN, sessionToken);
+        }
     }
 
     private void doRequestToken(final HttpServletRequest request, final HttpServletResponse response) {
         String requestToken = request.getHeader(X_REQUEST_TOKEN);
-        response.setHeader(X_REQUEST_TOKEN, ( requestToken != null) ? requestToken : java.util.UUID.randomUUID().toString());
+        //generate a token for downstream services.
+        // This will help with log monitoring throughout the eco system.
+        // Note that Lifetime and Session are not generated as they are boundry constraints beyond
+        // individual requests.
+        if (requestToken == null) {
+            requestToken = java.util.UUID.randomUUID().toString();
+        }
+        response.setHeader(X_REQUEST_TOKEN, requestToken);
     }
 
     @Override
