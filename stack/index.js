@@ -38,12 +38,12 @@ StackGenerator.prototype.askForFields = function askForFields() {
             message: '(1/' + questions + ') Do you want to generate the business tier?',
             choices: [
                 {
-                    value: 'no',
-                    name: 'No'
-                },
-                {
                     value: 'yes',
                     name: 'Yes'
+                },
+                {
+                    value: 'no',
+                    name: 'No'
                 }
             ],
             default: 0
@@ -57,12 +57,12 @@ StackGenerator.prototype.askForFields = function askForFields() {
             message: '(2/' + questions + ') Do you want to generate the facade tier?',
             choices: [
                 {
-                    value: 'no',
-                    name: 'No'
-                },
-                {
                     value: 'yes',
                     name: 'Yes'
+                },
+                {
+                    value: 'no',
+                    name: 'No'
                 }
             ],
             default: 0
@@ -77,12 +77,12 @@ StackGenerator.prototype.askForFields = function askForFields() {
             message: '(3/' + questions + ') Do you want to generate the rest tier?',
             choices: [
                 {
-                    value: 'no',
-                    name: 'No'
-                },
-                {
                     value: 'yes',
                     name: 'Yes'
+                },
+                {
+                    value: 'no',
+                    name: 'No'
                 }
             ],
             default: 0

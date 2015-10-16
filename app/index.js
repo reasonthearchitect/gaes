@@ -356,6 +356,10 @@ function setUpFilters(thing, packageFolder) {
     
     thing.template('src/main/java/package/web/_FilterRegistration.java', 
             'src/main/java/' + packageFolder + '/generated/web/FilterRegistration.java', thing, {});
+    thing.template('src/main/java/package/web/filter/_RolesFilter.java', 
+            'src/main/java/' + packageFolder + '/generated/web/filter/RolesFilter.java', thing, {});
+    thing.template('src/main/java/package/web/filter/_CaosFilter.java', 
+            'src/main/java/' + packageFolder + '/generated/web/filter/CaosFilter.java', thing, {});
 }
 
 function setUpFunctional(thing, packageFolder) {

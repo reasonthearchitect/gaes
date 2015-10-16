@@ -1,6 +1,8 @@
 package <%=packageNameGenerated%>.web;
 
+import <%=packageNameGenerated%>.web.filter.CaosFilter;
 import <%=packageNameGenerated%>.web.filter.LifeTimeSessionAndRequestTokenFilter;
+import <%=packageNameGenerated%>.web.filter.RolesFilter;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -24,5 +26,15 @@ public class FilterRegistration {
     @Bean(name = "lifeTimeSessionAndRequestTokenFilter")
     public LifeTimeSessionAndRequestTokenFilter lifeTimeSessionAndRequestTokenFilter() {
         return new LifeTimeSessionAndRequestTokenFilter();
+    }
+
+    @Bean(name = "rolesFilter")
+    public RolesFilter regesterRolesFilter() {
+        return new RolesFilter();
+    }
+
+    @Bean(name = "caosFilter")
+    public CaosFilter regesterCaosFilter() {
+        return new CaosFilter();
     }
 }
