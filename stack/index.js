@@ -113,6 +113,9 @@ StackGenerator.prototype.buildStack = function buildStack() {
     var groovyItSrc = 'src/integration/groovy/package/it/web/rest/';
     var groovyItDestination = 'src/integration/groovy/' + packageFolder + '/it/web/rest/';
 
+    var groovyFunctionalSrc = 'src/functional/groovy/package/functional/web/rest/';
+    var groovyFunctionlDestination = 'src/functional/groovy/' + packageFolder + '/functional/web/rest/';
+
     var interpolateRegex = /<%=([\s\S]+?)%>/g; // so that tags in templates do not get mistreated as _ templates
 
     if (this.business == 'yes') {
@@ -130,7 +133,8 @@ StackGenerator.prototype.buildStack = function buildStack() {
     if (this.rest == 'yes') {
     	this.template('src/main/groovy/package/web/rest/_Rest.groovy', groovyDir + 'web/rest/' +    this.entityClass + 'Rest.groovy', this, {});
         this.template('src/test/groovy/package/web/rest/_RestUnitSpec.groovy', groovyTest + 'web/rest/' +    this.entityClass + 'RestUnitSpec.groovy', this, {});
-        this.template( groovyItSrc + '_RestItSpec.groovy', groovyItDestination +    this.entityClass + 'RestItSpec.groovy', this, {});
-
+        this.template( groovyItSrc + '_RestItSpec.groovy', groovyItDestination +  this.entityClass + 'RestItSpec.groovy', this, {});
+        this.template( groovyFunctionalSrc + '_FunctionalTest.groovy', 
+            groovyFunctionlDestination +  this.entityClass + 'FunctionalTest.groovy', this, {});
     }
 };
