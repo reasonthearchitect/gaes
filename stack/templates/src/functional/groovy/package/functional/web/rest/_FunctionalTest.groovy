@@ -149,7 +149,7 @@ class <%=entityClass%>FunctionalTest extends AbstractFunctionTest {
     }
 
     @Test
-    public void check_the_caos_filter_appends_its_uri_to_performed_caos() {
+    public void check_the_caos_filter_appends_its_uri_to_previously_performed_caos() {
         String previousCaosUri = "/api/v1/notapplicableForFuncitonalTesting";
         String getUri = "/api/v1/<%=entityInstance%>s";
         int caosStatusCode = HttpStatus.SC_FAILED_DEPENDENCY;
