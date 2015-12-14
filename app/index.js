@@ -317,6 +317,8 @@ function setUpGradle(thing) {
     thing.copy('gradle/conf/test/integration.gradle', 'gradle/conf/test/integration.gradle');
     thing.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
     thing.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
+    thing.copy('gradle/conf/spring-cloud.gradle', 'gradle/conf/spring-cloud.gradle');
+
     // profiles
     thing.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
     thing.copy('gradle/conf/profiles/profile_prod.gradle', 'gradle/conf/profiles/profile_prod.gradle');

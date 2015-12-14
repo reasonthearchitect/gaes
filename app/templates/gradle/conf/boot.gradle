@@ -25,6 +25,7 @@ configurations {
 }
 
 dependencies {
+    compile group: 'ch.qos.logback',      name: 'logback-core', version: logback_version
 	compile group: 'org.springframework.boot',      name: 'spring-boot-actuator'
     compile group: 'org.springframework.boot',      name: 'spring-boot-starter-security'
     compile group: 'org.springframework.boot',      name: 'spring-boot-autoconfigure'
@@ -39,8 +40,4 @@ dependencies {
         exclude(module: 'quartz')
     }
     compile group: 'org.springframework.boot',      name: 'spring-boot-starter-data-elasticsearch'
-
-    runtime 'ch.qos.logback:logback-classic:1.0.9', // we use logback
-        'org.slf4j:jcl-over-slf4j:1.7.2',       // and the commons-logging bridge
-        'org.slf4j:log4j-over-slf4j:1.7.2'      // and the log4j bridge
 }

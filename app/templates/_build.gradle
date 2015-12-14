@@ -27,6 +27,7 @@ apply from: 'gradle/conf/jackson.gradle'
 apply from: 'gradle/conf/meta.gradle'
 apply from: 'gradle/conf/ide.gradle'
 apply from: 'gradle/conf/utils.gradle'
+apply from: 'gradle/conf/spring-cloud.gradle'
 //apply from: 'gradle/conf/aws.gradle'
 //apply from: 'gradle/conf/titan.gradle'
 
