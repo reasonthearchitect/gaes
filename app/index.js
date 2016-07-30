@@ -90,14 +90,16 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             name: 'ports',
             message: '(5/' + questions + ') What ports do you want to address?',
             default: '8080'
-        },
+        }
+/*
+        ,
         {
             type: 'input',
             name: 's3bucket',
             message: '(6/' + questions + ') What is the name of your s3 bucket?',
             default: 'test'
         }
-
+*/
     ];
 
 
@@ -108,7 +110,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
     this.dockerreponame         = this.config.get('dockerreponame');
     this.subreponame            = this.config.get('subreponame');
     this.ports                  = this.config.get('ports');
-    this.s3bucket               = this.config.get('s3bucket');
+    //this.s3bucket               = this.config.get('s3bucket');
 
     this.packageNameGenerated   = '';
     var generated               = "generated";
@@ -136,7 +138,7 @@ ScrippsGenerator.prototype.askFor = function askFor() {
             this.indexname              = props.indexname;
             this.subreponame            = props.subreponame;
             this.ports                  = props.ports;
-            this.s3bucket               = props.s3bucket;
+            // this.s3bucket               = props.s3bucket;
             var generated               = ".generated";
             this.packageNameGenerated   = props.packageName +  generated;
             console.log(this.packageNameGenerated);
@@ -160,7 +162,7 @@ ScrippsGenerator.prototype.app = function app() {
     var interpolateRegex = /<%=([\s\S]+?)%>/g; // so that tags in templates do not get mistreated as _ templates
 
     // Remove old files
-    setUoCircleCi(this);
+    // setUoCircleCi(this);
     setUpFunctional(this, packageFolder);
     setUpFilters(this, packageFolder);
 
@@ -187,11 +189,11 @@ ScrippsGenerator.prototype.app = function app() {
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     
-    this.template('_dynamodb-titan-storage-backend-cfn.json', 'dynamodb-titan-storage-backend-cfn.json', this, {});
+    // this.template('_dynamodb-titan-storage-backend-cfn.json', 'dynamodb-titan-storage-backend-cfn.json', this, {});
     
         
 
-    this.template('_circle.yml', 'circle.yml', this, {});
+    // this.template('_circle.yml', 'circle.yml', this, {});
 
     this.copy('src/main/docker/_Dockerfile', 'src/main/docker/Dockerfile');
     // Create the conf folder.
@@ -284,7 +286,7 @@ ScrippsGenerator.prototype.app = function app() {
 
     this.config.set('subreponame',          this.subreponame);
     this.config.set('ports',                this.ports);
-    this.config.set('s3bucket',             this.s3bucket);
+    //this.config.set('s3bucket',             this.s3bucket);
 
 };
 
@@ -317,7 +319,7 @@ function setUpGradle(thing) {
     thing.copy('gradle/conf/test/integration.gradle', 'gradle/conf/test/integration.gradle');
     thing.copy('gradle/conf/test/jbehave.gradle', 'gradle/conf/test/jbehave.gradle');
     thing.copy('gradle/conf/utils.gradle', 'gradle/conf/utils.gradle');
-    thing.copy('gradle/conf/spring-cloud.gradle', 'gradle/conf/spring-cloud.gradle');
+    //thing.copy('gradle/conf/spring-cloud.gradle', 'gradle/conf/spring-cloud.gradle');
 
     // profiles
     thing.copy('gradle/conf/profiles/profile_dev.gradle', 'gradle/conf/profiles/profile_dev.gradle');
